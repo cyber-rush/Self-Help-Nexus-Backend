@@ -1,9 +1,15 @@
 const express = require('express')
 const morgan = require('morgan')
+const techniqueRouter = require('./routes/techniqueRouter')
 
 const app = express()
 
-const port = 3000
-app.listen(port, () => {
-    console.log(`Server started on port : ${port}`)
-})
+// MIDDLEWARES
+console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
+
+app.use('/api/v1/techniques', techniqueRouter)
+
+module.exports = app;
